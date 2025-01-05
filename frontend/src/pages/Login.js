@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom"; 
 import "../login.css"; // Ensure your CSS file is properly linked
 import axios from "axios"; // Axios for HTTP requests
 
@@ -10,7 +11,8 @@ const Login = () => {
     confirmPassword: "",
   });
   const [message, setMessage] = useState("");
-
+  const navigate = useNavigate();
+ 
   const toggleForm = () => {
     setIsSignup((prev) => !prev);
     setFormData({
@@ -56,6 +58,8 @@ const Login = () => {
         // Handle login success
         setMessage(res.data.message || "Login successful!");
         localStorage.setItem("token", res.data.token); // Save JWT token
+
+        navigate("/album");
       }
     } catch (error) {
       setMessage(
@@ -160,10 +164,7 @@ const Login = () => {
               LOG IN
             </button>
           </form>
-          <div className="divider">OR</div>
-          <button className="btn-social btn-facebook">Continue with Facebook</button>
-          <button className="btn-social btn-google">Continue with Google</button>
-          <button className="btn-social btn-apple">Continue with Apple</button>
+          
           <div className="signup">
             <p>
               Don't have an account?{" "}
